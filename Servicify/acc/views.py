@@ -30,3 +30,5 @@ def serviceman_signup(request):
 def signin(request):
     return render(request, 'login.html')
 
+def serviceman_signin(request):
+    return render(request, 'serviceman_signup.html')

@@ -89,6 +89,55 @@
             gap: 20px;
         }
 
+        .login-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .login-toggle {
+            background: transparent;
+            border: 0;
+            color: var(--dark-text);
+            font: inherit;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 10px 2px;
+        }
+
+        .login-toggle:hover { color: var(--primary); }
+
+        .login-menu {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 190px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #eef0f6;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+            z-index: 1000;
+        }
+
+        .login-menu.show { display: block; }
+
+        .login-menu a {
+            display: block;
+            padding: 12px 14px;
+            color: var(--dark-text);
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .login-menu a:hover {
+            color: var(--primary);
+            background: #f4f3ff;
+        }
+
         .btn-link {
             text-decoration: none;
             color: var(--dark-text);
@@ -690,7 +739,15 @@
             </ul>
         </nav>
         <div class="nav-actions">
-            <a href="{% url 'signup' %}" class="btn-link">Log in</a>
+            <div class="login-dropdown">
+                <button type="button" class="login-toggle" id="loginToggle" aria-expanded="false" aria-controls="loginMenu">
+                    Log In <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="login-menu" id="loginMenu">
+                    <a href="{% url 'signin' %}">User Login</a>
+                    <a href="{% url 'serviceman_signin' %}">Serviceman Login</a>
+                </div>
+            </div>
             <a href="#" class="btn-primary">Book a service</a>
         </div>
     </header>
@@ -969,6 +1026,36 @@
             © 2026 Sarvicify. All rights reserved. Handcrafted for a better home service experience.
         </div>
     </footer>
+
+
+<script>
+    (function () {
+        const toggle = document.getElementById("loginToggle");
+        const menu = document.getElementById("loginMenu");
+        if (!toggle || !menu) return;
+
+        toggle.addEventListener("click", function (event) {
+            event.stopPropagation();
+            const isOpen = menu.classList.toggle("show");
+            toggle.setAttribute("aria-expanded", String(isOpen));
+        });
+
+        document.addEventListener("click", function (event) {
+            if (!event.target.closest(".login-dropdown")) {
+                menu.classList.remove("show");
+                toggle.setAttribute("aria-expanded", "false");
+            }
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                menu.classList.remove("show");
+                toggle.setAttribute("aria-expanded", "false");
+                toggle.focus();
+            }
+        });
+    })();
+</script>
 
 </body>
 </html>
