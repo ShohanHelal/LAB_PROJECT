@@ -690,8 +690,7 @@
             </ul>
         </nav>
         <div class="nav-actions">
-            <a href="{% url 'signup' %}" class="btn-link">Log in</a>
-            <a href="#" class="btn-primary">Book a service</a>
+<a href="{% url 'signin' %}" class="btn-link">Log in</a>            <a href="#" class="btn-primary">Book a service</a>
         </div>
     </header>
 
@@ -704,8 +703,7 @@
         <p>Book trusted professionals for your home, apartment, office, or property.</p>
 
         <!-- Search Bar Form -->
-        <form action="#" method="GET" class="search-box">
-            <div class="search-input">
+<form action="{% url 'signup' %}" method="get" class="search-box">            <div class="search-input">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input type="text" name="service" placeholder="What service do you need?">
             </div>
@@ -713,8 +711,7 @@
                 <i class="fa-solid fa-location-dot"></i>
                 <input type="text" name="location" placeholder="Select your location">
             </div>
-            <button type="submit" class="btn-search">Book a service</button>
-        </form>
+<a href="{% url 'signup' %}" class="btn-primary">Book a service</a>        </form>
     </section>
 
     <!-- Hero Cards -->

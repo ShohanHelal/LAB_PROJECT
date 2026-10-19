@@ -12,7 +12,7 @@ def signup(request):
     else:
         form = UserForm()
 
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'SignUp.html', {'form': form})
 
 
 def serviceman_signup(request):
