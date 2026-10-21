@@ -1,3 +1,4 @@
+
 from django.db import models
 
 
@@ -24,13 +25,12 @@ class Serviceman(models.Model):
     def __str__(self):
         return self.username
 
-class Booking(models.Model):
 
+class Booking(models.Model):
     service_name = models.CharField(max_length=100)
     customer_name = models.CharField(max_length=100)
     phone = models.CharField(max_length=20)
     address = models.TextField()
-
     booking_date = models.DateField()
     booking_time = models.TimeField()
 

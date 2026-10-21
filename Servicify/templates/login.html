@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicify | Login</title>
+    <title>ServiciFY | Login</title>
 
     <style>
         * {
@@ -126,6 +126,12 @@
         <p class="subtitle">
             Log in to book trusted home services.
         </p>
+
+        {% if error %}
+    <p style="color: red; text-align: center; margin-bottom: 15px;">
+        {{ error }}
+    </p>
+{% endif %}
 
         <form method="POST">
             {% csrf_token %}
