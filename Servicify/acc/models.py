@@ -34,6 +34,19 @@ class Booking(models.Model):
     booking_date = models.DateField()
     booking_time = models.TimeField()
 
+    offered_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    serviceman = models.ForeignKey(
+        'Serviceman',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='bookings'
+    )
     STATUS_CHOICES = [
         ('Pending', 'Pending'),
         ('Confirmed', 'Confirmed'),
