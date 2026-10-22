@@ -128,13 +128,22 @@
         </p>
 
         {% if error %}
-    <p style="color: red; text-align: center; margin-bottom: 15px;">
-        {{ error }}
-    </p>
+    <p style="color: red; margin-bottom: 15px;">{{ error }}</p>
 {% endif %}
 
         <form method="POST">
             {% csrf_token %}
+
+
+                <label for="role">Login as</label>
+                <select id="role" name="role" required
+                        style="width: 100%; padding: 14px; margin-bottom: 20px;
+                               border: 1px solid #dfe3ed; border-radius: 10px;
+                               font-size: 14px;">
+                    <option value="customer">Customer</option>
+                    <option value="serviceman">Service Man</option>
+                </select>
+
 
             <label for="username">Username</label>
             <input type="text" id="username" name="username"
