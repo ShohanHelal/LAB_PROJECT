@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sarvicify - Home Services, Made Easy</title>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -231,9 +233,19 @@
             transition: transform 0.3s ease;
         }
 
-        .hero-card:nth-child(1), .hero-card:nth-child(5) { transform: translateY(30px); }
-        .hero-card:nth-child(2), .hero-card:nth-child(4) { transform: translateY(10px); }
-        .hero-card:nth-child(3) { transform: translateY(-10px); }
+        .hero-card:nth-child(1),
+        .hero-card:nth-child(5) {
+            transform: translateY(30px);
+        }
+
+        .hero-card:nth-child(2),
+        .hero-card:nth-child(4) {
+            transform: translateY(10px);
+        }
+
+        .hero-card:nth-child(3) {
+            transform: translateY(-10px);
+        }
 
         .hero-card img {
             width: 100%;
@@ -477,7 +489,8 @@
             transition: all 0.2s;
         }
 
-        .pill.active, .pill:hover {
+        .pill.active,
+        .pill:hover {
             background: var(--primary);
             color: #fff;
         }
@@ -657,40 +670,93 @@
 
         /* --- RESPONSIVE DESIGN --- */
         @media (max-width: 1024px) {
-            .hero-cards { display: none; }
-            .services-grid, .steps-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
-            .experts-grid { grid-template-columns: repeat(2, 1fr); }
-            .why-us-wrapper { flex-direction: column; }
+            .hero-cards {
+                display: none;
+            }
+
+            .services-grid,
+            .steps-grid,
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .experts-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-us-wrapper {
+                flex-direction: column;
+            }
         }
 
         @media (max-width: 768px) {
-            header { padding: 15px 5%; }
-            nav { display: none; }
-            .hero h1 { font-size: 36px; }
-            .search-box { flex-direction: column; border-radius: 20px; gap: 10px; }
-            .search-input { border-right: none; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; width: 100%; }
-            .services-grid, .steps-grid, .testimonials-grid, .experts-grid { grid-template-columns: 1fr; }
-            .footer-content { flex-direction: column; gap: 20px; text-align: center; }
+            header {
+                padding: 15px 5%;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                border-radius: 20px;
+                gap: 10px;
+            }
+
+            .search-input {
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+                padding-bottom: 10px;
+                width: 100%;
+            }
+
+            .services-grid,
+            .steps-grid,
+            .testimonials-grid,
+            .experts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Header / Navbar -->
     <header>
         <div class="logo">
-            <a href="{% url 'home' %}"><i class="fa-solid fa-sparkles"></i> serviciFY</span></a>
+            <a href="{% url 'home' %}">
+                <i class="fa-solid fa-sparkles"></i> serviciFY
+            </a>
         </div>
+
         <nav>
             <ul>
                 <li><a href="#">Services</a></li>
                 <li><a href="#">How it works</a></li>
                 <li><a href="#">Locations</a></li>
-                <li><a href="#">Become a provider</a></li>
+                <li><a href="{% url 'register_choice' %}">Become a provider</a></li>
             </ul>
         </nav>
+
         <div class="nav-actions">
-<a href="{% url 'signin' %}" class="btn-link">Log in</a>            <a href="#" class="btn-primary">Book a service</a>
+            <a href="{% url 'signin' %}" class="btn-link">Log in</a>
+
+            <!-- UPDATED: Book a service points to account choice -->
+            <a href="{% url 'register_choice' %}" class="btn-primary">
+                Book a service
+            </a>
         </div>
     </header>
 
@@ -699,28 +765,61 @@
         <div class="badge-trust">
             <i class="fa-solid fa-star"></i> 7.5K Happy Customers
         </div>
+
         <h1>Home services,<br>made easy</h1>
-        <p>Book trusted professionals for your home, apartment, office, or property.</p>
+
+        <p>
+            Book trusted professionals for your home, apartment, office, or property.
+        </p>
 
         <!-- Search Bar Form -->
-<form action="{% url 'signup' %}" method="get" class="search-box">            <div class="search-input">
+        <form action="{% url 'register_choice' %}" method="get" class="search-box">
+            <div class="search-input">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" name="service" placeholder="What service do you need?">
+                <input
+                    type="text"
+                    name="service"
+                    placeholder="What service do you need?"
+                >
             </div>
+
             <div class="search-input">
                 <i class="fa-solid fa-location-dot"></i>
-                <input type="text" name="location" placeholder="Select your location">
+                <input
+                    type="text"
+                    name="location"
+                    placeholder="Select your location"
+                >
             </div>
-<a href="{% url 'signup' %}" class="btn-primary">Book a service</a>        </form>
+
+            <!-- UPDATED: Search form button points to account choice -->
+            <button type="submit" class="btn-search">
+                Book a service
+            </button>
+        </form>
     </section>
 
     <!-- Hero Cards -->
     <div class="hero-cards">
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80" alt="Home Cleaning"></div>
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" alt="Electrical Work"></div>
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=400&q=80" alt="Painting Service"></div>
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1505798577917-a65157d3320a?auto=format&fit=crop&w=400&q=80" alt="Plumbing"></div>
-        <div class="hero-card"><img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=400&q=80" alt="AC Repair"></div>
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80" alt="Home Cleaning">
+        </div>
+
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" alt="Electrical Work">
+        </div>
+
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=400&q=80" alt="Painting Service">
+        </div>
+
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1505798577917-a65157d3320a?auto=format&fit=crop&w=400&q=80" alt="Plumbing">
+        </div>
+
+        <div class="hero-card">
+            <img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=400&q=80" alt="AC Repair">
+        </div>
     </div>
 
     <!-- Main Container -->
@@ -730,45 +829,54 @@
         <div class="section-header">
             <span class="section-subtitle">01 DISCOVER</span>
             <h2 class="section-title">Popular services</h2>
-            <p style="color: var(--muted-text); margin-top: 8px;">Everything your home needs.</p>
+            <p style="color: var(--muted-text); margin-top: 8px;">
+                Everything your home needs.
+            </p>
         </div>
 
         <div class="services-grid">
-            <a href="#" class="service-card">
+            <a href="{% url 'register_choice' %}" class="service-card">
                 <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=500&q=80" alt="Home Cleaning">
                 <div class="service-card-label">Home Cleaning</div>
             </a>
-            <a href="#" class="service-card">
+
+            <a href="{% url 'register_choice' %}" class="service-card">
                 <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=500&q=80" alt="Electrical">
                 <div class="service-card-label">Electrical</div>
             </a>
+
             <div class="quote-card">
                 <p>“Finally, a simple and reliable way to find help for home repairs.”</p>
                 <span>— Alex Morgan • New York</span>
             </div>
-            <a href="#" class="service-card">
+
+            <a href="{% url 'register_choice' %}" class="service-card">
                 <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" alt="Plumbing">
                 <div class="service-card-label">Plumbing</div>
             </a>
-            <a href="#" class="service-card">
+
+            <a href="{% url 'register_choice' %}" class="service-card">
                 <img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=500&q=80" alt="AC Service">
                 <div class="service-card-label">AC Service</div>
             </a>
-            <a href="#" class="service-card">
+
+            <a href="{% url 'register_choice' %}" class="service-card">
                 <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80" alt="Painting">
                 <div class="service-card-label">Painting</div>
             </a>
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
-            <a href="#" class="btn-primary">View all services</a>
+            <a href="{% url 'register_choice' %}" class="btn-primary">View all services</a>
         </div>
 
         <!-- 02 HOW IT WORKS -->
         <div class="section-header" style="margin-top: 100px;">
             <span class="section-subtitle">02 SIMPLE STEPS</span>
             <h2 class="section-title">Book in 3 steps</h2>
-            <p style="color: var(--muted-text); margin-top: 8px;">A clear path from task to trusted help.</p>
+            <p style="color: var(--muted-text); margin-top: 8px;">
+                A clear path from task to trusted help.
+            </p>
         </div>
 
         <div class="steps-grid">
@@ -780,6 +888,7 @@
                 <h3>Choose a service</h3>
                 <p>Tell us what you need done around your house or office.</p>
             </div>
+
             <div class="step-card">
                 <div class="step-num">02</div>
                 <div class="step-img">
@@ -788,6 +897,7 @@
                 <h3>Pick a time</h3>
                 <p>Select a date and time slot that fits your schedule best.</p>
             </div>
+
             <div class="step-card">
                 <div class="step-num">03</div>
                 <div class="step-img">
@@ -803,6 +913,7 @@
             <div class="why-us-content">
                 <span class="section-subtitle">03 WHY US?</span>
                 <h2 class="section-title" style="text-align: left;">Why choose us</h2>
+
                 <div class="feature-list">
                     <div class="feature-item">
                         <i class="fa-solid fa-user-check"></i>
@@ -811,6 +922,7 @@
                             <p>Work with background-checked and highly rated service providers.</p>
                         </div>
                     </div>
+
                     <div class="feature-item">
                         <i class="fa-solid fa-tag"></i>
                         <div>
@@ -818,6 +930,7 @@
                             <p>Know exactly what you pay with transparent and fixed rates.</p>
                         </div>
                     </div>
+
                     <div class="feature-item">
                         <i class="fa-solid fa-calendar-check"></i>
                         <div>
@@ -827,6 +940,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="why-us-image">
                 <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Why Choose Us">
             </div>
@@ -834,138 +948,8 @@
 
         <!-- CATEGORIES PILLS -->
         <div class="categories-pills">
-            <a href="#" class="pill active"><i class="fa-solid fa-car"></i> Driver</a>
-            <a href="#" class="pill"><i class="fa-solid fa-snowflake"></i> AC Repair</a>
-            <a href="#" class="pill"><i class="fa-solid fa-broom"></i> Cleaning</a>
-            <a href="#" class="pill"><i class="fa-solid fa-utensils"></i> Chef</a>
-            <a href="#" class="pill"><i class="fa-solid fa-seedling"></i> Gardener</a>
-            <a href="#" class="pill"><i class="fa-solid fa-paint-roller"></i> Painting</a>
-            <a href="#" class="pill"><i class="fa-solid fa-faucet"></i> Plumbing</a>
-            <a href="#" class="pill"><i class="fa-solid fa-shirt"></i> Laundry</a>
-            <a href="#" class="pill"><i class="fa-solid fa-bolt"></i> Electrical</a>
-        </div>
-
-        <!-- MEET LOCAL EXPERTS -->
-        <div class="section-header">
-            <span class="section-subtitle">04 EXPERTS</span>
-            <h2 class="section-title">Meet local experts</h2>
-            <p style="color: var(--muted-text); margin-top: 8px;">Skilled professionals ready to assist you.</p>
-        </div>
-
-        <div class="experts-grid">
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Sarah">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.9 Rating</div>
-                <h3>Sarah Jenkins</h3>
-                <p>Chef • London</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" alt="Maria">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.8 Rating</div>
-                <h3>Maria Garcia</h3>
-                <p>Home Cleaning • Toronto</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="David">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.8 Rating</div>
-                <h3>David Miller</h3>
-                <p>Electrical • Chicago</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Robert">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.9 Rating</div>
-                <h3>Robert Wilson</h3>
-                <p>Handyman • Sydney</p>
-            </div>
-        </div>
-
-        <!-- LOVED BY CUSTOMERS -->
-        <div class="section-header" style="margin-top: 100px;">
-            <span class="section-subtitle">05 TESTIMONIALS</span>
-            <h2 class="section-title">Loved by customers</h2>
-        </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"The booking process was seamless and the cleaning expert arrived right on time. Outstanding service!"</p>
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User">
-                    <div>
-                        <h5>James Anderson</h5>
-                        <span>New York</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Super easy to book and the electrician fixed my home wiring in no time. Highly recommended!"</p>
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="User">
-                    <div>
-                        <h5>Dr. Ralph Harris</h5>
-                        <span>London</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Finally, a reliable platform to hire vetted professionals. I've used Sarvicify three times now."</p>
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=100&q=80" alt="User">
-                    <div>
-                        <h5>Emily Watson</h5>
-                        <span>Sydney</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- FAQ SECTION -->
-        <div class="section-header" style="margin-top: 100px;">
-            <span class="section-subtitle">06 FAQ</span>
-            <h2 class="section-title">Questions, answered</h2>
-        </div>
-
-        <div class="faq-list">
-            <div class="faq-item">
-                <span>How much does a service cost?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="faq-item">
-                <span>Which locations and cities do you cover?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-            <div class="faq-item">
-                <span>Are all service providers verified?</span>
-                <i class="fa-solid fa-plus"></i>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">Sarvi<span>cify</span></div>
-            <ul class="footer-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-        </div>
-        <div class="footer-bottom">
-            © 2026 Sarvicify. All rights reserved. Handcrafted for a better home service experience. 
-        </div>
-    </footer>
-
-</body>
-</html>
+            <a href="{% url 'register_choice' %}" class="pill active"><i class="fa-solid fa-car"></i> Driver</a>
+            <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-snowflake"></i> AC Repair</a>
+            <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-broom"></i> Cleaning</a>
+            <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-utensils"></i> Chef</a>
+            <a href="{% url 'register

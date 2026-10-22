@@ -7,6 +7,9 @@ from .forms import UserForm, ServicemanForm
 from .models import User, Serviceman, Booking
 
 
+def register_choice(request):
+    return render(request, 'register_choice.html')
+
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -130,13 +133,12 @@ def serviceman_dashboard(request):
         for job in my_jobs
         if job.status == 'Completed'
     )
-    message = request.session.pop('job_message', '')
+
     return render(request, 'serviceman_dashboard.html', {
         'provider': provider,
         'available_jobs': available_jobs,
         'my_jobs': my_jobs,
-        'earnings': earnings,
-        'message': message
+        'earnings': earnings
     })
 
 
@@ -168,4 +170,3 @@ def accept_job(request, booking_id):
         )
 
     return redirect('serviceman_dashboard')
-
