@@ -10,9 +10,11 @@ from .models import User, Serviceman, Booking
 def register_choice(request):
     return render(request, 'register_choice.html')
 
+
 def signup(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
+
         if form.is_valid():
             form.save()
             return redirect('signin')
@@ -25,13 +27,18 @@ def signup(request):
 def serviceman_signup(request):
     if request.method == 'POST':
         form = ServicemanForm(request.POST)
+
         if form.is_valid():
             form.save()
             return redirect('signin')
     else:
         form = ServicemanForm()
 
-    return render(request, 'serviceman_signup.html', {'form': form})
+    return render(
+        request,
+        'acc/serviceman_signup.html',
+        {'form': form}
+    )
 
 
 def signin(request):
@@ -84,8 +91,12 @@ def booking(request):
     if request.method == 'POST':
         try:
             Booking.objects.create(
-                service_name=request.POST.get('service_name', '').strip(),
-                customer_name=request.POST.get('customer_name', '').strip(),
+                service_name=request.POST.get(
+                    'service_name', ''
+                ).strip(),
+                customer_name=request.POST.get(
+                    'customer_name', ''
+                ).strip(),
                 phone=request.POST.get('phone', '').strip(),
                 address=request.POST.get('address', '').strip(),
                 booking_date=request.POST.get('booking_date'),
@@ -101,7 +112,10 @@ def booking(request):
         except (ValueError, TypeError):
             return render(request, 'booking.html', {
                 'customer': customer,
-                'error': 'Please enter a valid date, time, and offered price.'
+                'error': (
+                    'Please enter a valid date, time, '
+                    'and offered price.'
+                )
             })
 
     return render(request, 'booking.html', {'customer': customer})
@@ -113,7 +127,9 @@ def serviceman_dashboard(request):
     if not serviceman_id:
         return redirect('signin')
 
-    provider = Serviceman.objects.filter(id=serviceman_id).first()
+    provider = Serviceman.objects.filter(
+        id=serviceman_id
+    ).first()
 
     if not provider:
         request.session.flush()
@@ -149,7 +165,10 @@ def accept_job(request, booking_id):
     if not serviceman_id:
         return redirect('signin')
 
-    provider = get_object_or_404(Serviceman, id=serviceman_id)
+    provider = get_object_or_404(
+        Serviceman,
+        id=serviceman_id
+    )
 
     # Assign the job only if it is still available.
     with transaction.atomic():
@@ -163,7 +182,9 @@ def accept_job(request, booking_id):
         )
 
     if accepted:
-        request.session['job_message'] = 'Job accepted successfully.'
+        request.session['job_message'] = (
+            'Job accepted successfully.'
+        )
     else:
         request.session['job_message'] = (
             'This job is no longer available.'
