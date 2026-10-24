@@ -14,3 +14,4 @@ urlpatterns = [
     path('accept-job/<int:booking_id>/', views.accept_job,
          name='accept_job'),
 ]
+
