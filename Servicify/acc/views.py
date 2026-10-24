@@ -170,6 +170,7 @@ def accept_job(request, booking_id):
         id=serviceman_id
     )
 
+    
     # Assign the job only if it is still available.
     with transaction.atomic():
         accepted = Booking.objects.filter(
