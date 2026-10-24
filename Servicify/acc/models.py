@@ -1,3 +1,4 @@
+
 from django.db import models
 
 
@@ -24,3 +25,42 @@ class Serviceman(models.Model):
     def __str__(self):
         return self.username
 
+
+class Booking(models.Model):
+    service_name = models.CharField(max_length=100)
+    customer_name = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20)
+    address = models.TextField()
+    booking_date = models.DateField()
+    booking_time = models.TimeField()
+
+    offered_price = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+
+    serviceman = models.ForeignKey(
+        'Serviceman',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='bookings'
+    )
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Confirmed', 'Confirmed'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+    ]
+
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='Pending'
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.customer_name + " - " + self.service_name
