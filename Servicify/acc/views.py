@@ -192,3 +192,5 @@ def accept_job(request, booking_id):
         )
 
     return redirect('serviceman_dashboard')
+
+
