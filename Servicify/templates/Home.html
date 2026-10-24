@@ -113,16 +113,18 @@
             font-size: 15px;
             box-shadow: 0 4px 14px rgba(79, 70, 229, 0.3);
             transition: all 0.3s ease;
+            display: inline-block;
         }
 
         .btn-primary:hover {
             background: var(--primary-hover);
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
         }
 
         /* --- HERO SECTION --- */
         .hero {
-            background: linear-gradient(180deg, #6366f1 0%, #818cf8 40%, #e0e7ff 100%);
+            background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #818cf8 100%);
             padding: 80px 5% 180px 5%;
             text-align: center;
             position: relative;
@@ -135,11 +137,12 @@
             gap: 8px;
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(8px);
-            padding: 6px 16px;
+            padding: 8px 18px;
             border-radius: 30px;
             font-size: 13px;
             font-weight: 600;
             margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .hero h1 {
@@ -152,7 +155,7 @@
 
         .hero p {
             font-size: 18px;
-            opacity: 0.9;
+            opacity: 0.95;
             max-width: 550px;
             margin: 0 auto 40px auto;
         }
@@ -202,11 +205,12 @@
             border-radius: 40px;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.3s ease;
         }
 
         .search-box .btn-search:hover {
             background: var(--primary-hover);
+            transform: scale(1.02);
         }
 
         /* Hero Image Cards Arc Layout */
@@ -226,11 +230,11 @@
             height: 320px;
             border-radius: var(--radius-lg);
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             border: 4px solid #fff;
             background: #cbd5e1;
             position: relative;
-            transition: transform 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .hero-card:nth-child(1),
@@ -245,6 +249,11 @@
 
         .hero-card:nth-child(3) {
             transform: translateY(-10px);
+        }
+
+        .hero-card:hover {
+            transform: translateY(-20px) scale(1.05) !important;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.25);
         }
 
         .hero-card img {
@@ -296,17 +305,23 @@
             position: relative;
             height: 260px;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
         }
 
         .service-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover img {
+            transform: scale(1.08);
         }
 
         .service-card-label {
@@ -314,16 +329,17 @@
             bottom: 16px;
             left: 16px;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(4px);
-            padding: 8px 16px;
+            backdrop-filter: blur(8px);
+            padding: 8px 18px;
             border-radius: 20px;
             font-size: 14px;
             font-weight: 700;
             color: var(--dark-text);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
         .quote-card {
-            background: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: var(--radius-md);
             padding: 30px;
             display: flex;
@@ -360,6 +376,11 @@
             padding: 24px;
             box-shadow: var(--card-shadow);
             position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
         }
 
         .step-num {
@@ -368,15 +389,16 @@
             left: 16px;
             background: var(--dark-text);
             color: #fff;
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
             z-index: 2;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .step-img {
@@ -391,6 +413,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .step-card:hover .step-img img {
+            transform: scale(1.05);
         }
 
         .step-card h3 {
@@ -404,7 +431,7 @@
             color: var(--muted-text);
         }
 
-        /* --- WHY CHOOSE US --- */
+        /* --- WHY CHOOSE US (MAIN SECTION) --- */
         .why-us-wrapper {
             background: #f1f5f9;
             border-radius: var(--radius-lg);
@@ -434,6 +461,11 @@
             padding: 18px;
             border-radius: var(--radius-md);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(6px);
         }
 
         .feature-item i {
@@ -457,12 +489,70 @@
             height: 380px;
             border-radius: var(--radius-lg);
             overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
         .why-us-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* --- WHY CHOOSE US (CARDS GRID) --- */
+        .why-us-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .why-card {
+            background: #fff;
+            border-radius: var(--radius-md);
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #f1f5f9;
+        }
+
+        .why-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(79, 70, 229, 0.12);
+            border-color: var(--primary-light);
+        }
+
+        .why-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--primary-light);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 20px auto;
+            transition: all 0.3s ease;
+        }
+
+        .why-card:hover .why-icon {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .why-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark-text);
+        }
+
+        .why-card p {
+            font-size: 13px;
+            color: var(--muted-text);
+            line-height: 1.5;
         }
 
         /* --- CATEGORY PILLS --- */
@@ -486,66 +576,15 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.2s;
+            transition: all 0.3s ease;
         }
 
         .pill.active,
         .pill:hover {
             background: var(--primary);
             color: #fff;
-        }
-
-        /* --- LOCAL EXPERTS --- */
-        .experts-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .expert-card {
-            background: #fff;
-            border-radius: var(--radius-md);
-            padding: 24px 16px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-        }
-
-        .expert-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 16px auto;
-            overflow: hidden;
-        }
-
-        .expert-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .expert-rating {
-            background: #eff6ff;
-            color: var(--primary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-bottom: 8px;
-        }
-
-        .expert-card h3 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .expert-card p {
-            font-size: 13px;
-            color: var(--muted-text);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.25);
         }
 
         /* --- TESTIMONIALS --- */
@@ -561,6 +600,11 @@
             border-radius: var(--radius-md);
             padding: 24px;
             box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
         }
 
         .stars {
@@ -583,9 +627,10 @@
         }
 
         .user-info img {
-            width: 40px;
-            height: 40px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
+            object-fit: cover;
         }
 
         .user-info h5 {
@@ -617,6 +662,12 @@
             align-items: center;
             cursor: pointer;
             font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .faq-item:hover {
+            background: #f8fafc;
+            color: var(--primary);
         }
 
         /* --- FOOTER --- */
@@ -640,6 +691,8 @@
             font-size: 24px;
             font-weight: 800;
             color: #fff;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .footer-logo span {
@@ -680,7 +733,7 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            .experts-grid {
+            .why-us-cards-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -706,6 +759,7 @@
                 flex-direction: column;
                 border-radius: 20px;
                 gap: 10px;
+                padding: 16px;
             }
 
             .search-input {
@@ -718,7 +772,7 @@
             .services-grid,
             .steps-grid,
             .testimonials-grid,
-            .experts-grid {
+            .why-us-cards-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -737,7 +791,7 @@
     <header>
         <div class="logo">
             <a href="{% url 'home' %}">
-                <i class="fa-solid fa-sparkles"></i> serviciFY
+                <i class="fa-solid fa-sparkles"></i> Servicify
             </a>
         </div>
 
@@ -802,23 +856,23 @@
     <!-- Hero Cards -->
     <div class="hero-cards">
         <div class="hero-card">
-            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=400&q=80" alt="Home Cleaning">
+            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80" alt="Home Cleaning">
         </div>
 
         <div class="hero-card">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=400&q=80" alt="Electrical Work">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" alt="Electrical Work">
         </div>
 
         <div class="hero-card">
-            <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=400&q=80" alt="Painting Service">
+            <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80" alt="Painting Service">
         </div>
 
         <div class="hero-card">
-            <img src="https://images.unsplash.com/photo-1505798577917-a65157d3320a?auto=format&fit=crop&w=400&q=80" alt="Plumbing">
+            <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80" alt="Plumbing">
         </div>
 
         <div class="hero-card">
-            <img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=400&q=80" alt="AC Repair">
+            <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=600&q=80" alt="AC Repair">
         </div>
     </div>
 
@@ -836,12 +890,12 @@
 
         <div class="services-grid">
             <a href="{% url 'register_choice' %}" class="service-card">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=500&q=80" alt="Home Cleaning">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80" alt="Home Cleaning">
                 <div class="service-card-label">Home Cleaning</div>
             </a>
 
             <a href="{% url 'register_choice' %}" class="service-card">
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=500&q=80" alt="Electrical">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80" alt="Electrical">
                 <div class="service-card-label">Electrical</div>
             </a>
 
@@ -851,17 +905,17 @@
             </div>
 
             <a href="{% url 'register_choice' %}" class="service-card">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" alt="Plumbing">
+                <img src="https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=600&q=80" alt="Plumbing">
                 <div class="service-card-label">Plumbing</div>
             </a>
 
             <a href="{% url 'register_choice' %}" class="service-card">
-                <img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=500&q=80" alt="AC Service">
+                <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=600&q=80" alt="AC Service">
                 <div class="service-card-label">AC Service</div>
             </a>
 
             <a href="{% url 'register_choice' %}" class="service-card">
-                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80" alt="Painting">
+                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=600&q=80" alt="Painting">
                 <div class="service-card-label">Painting</div>
             </a>
         </div>
@@ -883,7 +937,7 @@
             <div class="step-card">
                 <div class="step-num">01</div>
                 <div class="step-img">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80" alt="Choose a service">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=600&q=80" alt="Choose a service">
                 </div>
                 <h3>Choose a service</h3>
                 <p>Tell us what you need done around your house or office.</p>
@@ -892,7 +946,7 @@
             <div class="step-card">
                 <div class="step-num">02</div>
                 <div class="step-img">
-                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Pick a time">
+                    <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=600&q=80" alt="Pick a time">
                 </div>
                 <h3>Pick a time</h3>
                 <p>Select a date and time slot that fits your schedule best.</p>
@@ -901,14 +955,14 @@
             <div class="step-card">
                 <div class="step-num">03</div>
                 <div class="step-img">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80" alt="Relax">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80" alt="Relax">
                 </div>
                 <h3>Relax</h3>
                 <p>A background-checked professional arrives to solve your problem.</p>
             </div>
         </div>
 
-        <!-- 03 WHY CHOOSE US -->
+        <!-- 03 WHY CHOOSE US BANNER -->
         <div class="why-us-wrapper">
             <div class="why-us-content">
                 <span class="section-subtitle">03 WHY US?</span>
@@ -942,7 +996,7 @@
             </div>
 
             <div class="why-us-image">
-                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80" alt="Why Choose Us">
+                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" alt="Why Choose Us">
             </div>
         </div>
 
@@ -952,4 +1006,157 @@
             <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-snowflake"></i> AC Repair</a>
             <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-broom"></i> Cleaning</a>
             <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-utensils"></i> Chef</a>
-            <a href="{% url 'register
+            <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-wrench"></i> Plumbing</a>
+            <a href="{% url 'register_choice' %}" class="pill"><i class="fa-solid fa-bolt"></i> Electrician</a>
+        </div>
+
+        <!-- WHY CHOOSE US (REPLACED LOCAL EXPERTS) -->
+        <div class="section-header">
+            <span class="section-subtitle">OUR ADVANTAGES</span>
+            <h2 class="section-title">Why Choose Us</h2>
+            <p style="color: var(--muted-text); margin-top: 8px;">
+                Experience effortless and reliable home maintenance solutions today.
+            </p>
+        </div>
+
+        <div class="why-us-cards-grid">
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>100% Safe & Secure</h3>
+                <p>All service experts go through rigorous background checks and identity verification.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                </div>
+                <h3>Transparent Pricing</h3>
+                <p>No hidden charges or surprise costs. Get upfront transparent quotes before booking.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                </div>
+                <h3>On-Time Service</h3>
+                <p>Punctual experts at your doorstep within your selected time slot guaranteed.</p>
+            </div>
+
+            <div class="why-card">
+                <div class="why-icon">
+                    <i class="fa-solid fa-headset"></i>
+                </div>
+                <h3>24/7 Support</h3>
+                <p>Our dedicated customer support team is available round the clock for assistance.</p>
+            </div>
+        </div>
+
+        <!-- TESTIMONIALS -->
+        <div class="section-header" style="margin-top: 100px;">
+            <span class="section-subtitle">TESTIMONIALS</span>
+            <h2 class="section-title">What our customers say</h2>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p>"The electrician arrived right on time and fixed all our issues in under an hour. Super clean work!"</p>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Jessica Reed">
+                    <div>
+                        <h5>Jessica Reed</h5>
+                        <span>Homeowner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p>"Booking a deep cleaning service was super simple. The team was professional and polite."</p>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=80" alt="Robert Fox">
+                    <div>
+                        <h5>Robert Fox</h5>
+                        <span>Apartment Owner</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p>"Great pricing and transparent system! Highly recommended for any home maintenance project."</p>
+                <div class="user-info">
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" alt="Emily Watson">
+                    <div>
+                        <h5>Emily Watson</h5>
+                        <span>Business Manager</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ SECTION -->
+        <div class="section-header" style="margin-top: 100px;">
+            <span class="section-subtitle">FAQ</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <span>How do I book a service provider?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-item">
+                <span>Are all service professionals verified?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-item">
+                <span>What happens if I need to cancel or reschedule?</span>
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <a href="{% url 'home' %}" class="footer-logo">
+                <i class="fa-solid fa-sparkles"></i> Servici<span>fy</span>
+            </a>
+
+            <ul class="footer-links">
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sarvicify. All rights reserved.</p>
+        </div>
+    </footer>
+
+</html></body>
