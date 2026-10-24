@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}Write a review{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h1 class="page-title" style="font-size: 26px;">Rate your experience</h1>
+    <p class="page-sub">
+        {{ booking.serviceman.service.name }} by <strong>{{ booking.serviceman.username }}</strong>
+        on {{ booking.booking_date|date:"d M Y" }}
+    </p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn" style="width: 100%; padding: 14px;">Post review</button>
+    </form>
+</div>
+{% endblock %}
+l>

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Find providers{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Find providers</h1>
+<p class="page-sub">Choose a service and your area to see who can help.</p>
+
+<form method="GET" class="filter-bar card">
+    <div>
+        <label for="service">Service</label>
+        <select name="service" id="service">
+            <option value="">All services</option>
+            {% for s in services %}
+                <option value="{{ s.id }}" {% if selected_service == s.id|stringformat:"s" %}selected{% endif %}>{{ s.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <label for="location">Location (Dhaka)</label>
+        <select name="location" id="location">
+            <option value="">All of Dhaka</option>
+            {% for l in locations %}
+                <option value="{{ l.id }}" {% if selected_location == l.id|stringformat:"s" %}selected{% endif %}>{{ l.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn">Search</button>
+</form>
+
+{% if using_my_area %}
+    <p class="muted" style="margin-bottom: 18px;">
+        <i class="fa-solid fa-location-dot"></i>
+        Showing providers in your area. Choose "All of Dhaka" above to see everyone.
+    </p>
+{% endif %}
+
+<div class="grid">
+    {% for p in providers %}
+        <div class="card">
+            <div class="provider-top">
+                <div class="avatar">{{ p.username|first|upper }}</div>
+                <div>
+                    <h3>{{ p.username }}</h3>
+                    <span class="tag">{{ p.service.name }}</span>
+                </div>
+            </div>
+            <p class="info-line"><i class="fa-solid fa-location-dot"></i> {{ p.location.name }}</p>
+            <p class="info-line"><i class="fa-solid fa-briefcase"></i> {{ p.experience }} year{{ p.experience|pluralize }} experience</p>
+            <p class="info-line">
+                {% if p.avg_rating %}
+                    <span class="rating"><i class="fa-solid fa-star"></i> {{ p.avg_rating|floatformat:1 }}</span>
+                    ({{ p.review_count }} review{{ p.review_count|pluralize }})
+                {% else %}
+                    <i class="fa-regular fa-star"></i> No reviews yet
+                {% endif %}
+            </p>
+            <div class="actions">
+                <a href="{% url 'provider_profile' p.id %}" class="btn btn-outline btn-small">View profile</a>
+                <a href="{% url 'book_service' p.id %}" class="btn btn-small">Book</a>
+            </div>
+        </div>
+    {% empty %}
+        <div class="empty" style="grid-column: 1 / -1;">
+            No providers found for this search. Try another area or service.
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

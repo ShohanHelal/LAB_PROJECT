@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1 class="page-title">Welcome, {{ provider.username }}</h1>
+<p class="page-sub">
+    {{ provider.service.name }} &middot; {{ provider.location.name }}, Dhaka &middot;
+    <a href="{% url 'provider_profile' provider.id %}">View my public profile</a>
+</p>
+
+<div class="stats">
+    <div class="card stat"><b>{{ pending|length }}</b> New requests</div>
+    <div class="card stat"><b>{{ accepted|length }}</b> Ongoing jobs</div>
+    <div class="card stat"><b>{{ completed_count }}</b> Completed</div>
+    <div class="card stat"><b>{% if average %}{{ average }} ★{% else %}-{% endif %}</b> Rating</div>
+</div>
+
+<!-- NEW REQUESTS -->
+<h2 class="section">New requests</h2>
+{% for b in pending %}
+    <div class="card booking">
+        <div class="booking-head">
+            <div>
+                <h3>{{ b.customer.username }} <span class="muted">from {{ b.customer.location.name }}</span></h3>
+                <p class="muted">Requested on {{ b.created_at|date:"d M Y, h:i A" }}</p>
+            </div>
+            <span class="badge badge-Pending">Pending</span>
+        </div>
+        <p class="info-line"><i class="fa-solid fa-calendar"></i> {{ b.booking_date|date:"D, d M Y" }} at {{ b.booking_time|time:"h:i A" }}</p>
+        <p class="info-line"><i class="fa-solid fa-tag"></i>
+            {% if b.offered_price %}Offered: {{ b.offered_price|floatformat:0 }} BDT{% else %}Price to be negotiated{% endif %}
+        </p>
+        <p style="margin-top: 8px;">{{ b.description }}</p>
+        <p class="muted" style="margin-top: 10px;"><i class="fa-solid fa-lock"></i> Phone, email and full address are shown after you accept.</p>
+
+        <div class="actions">
+            <form method="POST" action="{% url 'accept_booking' b.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-green btn-small">Accept</button>
+            </form>
+            <form method="POST" action="{% url 'decline_booking' b.id %}" onsubmit="return confirm('Decline this request?');">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-red btn-small">Decline</button>
+            </form>
+        </div>
+    </div>
+{% empty %}
+    <div class="empty">No new requests right now.</div>
+{% endfor %}
+
+<!-- ACCEPTED JOBS -->
+<h2 class="section">Accepted jobs</h2>
+{% for b in accepted %}
+    <div class="card booking">
+        <div class="booking-head">
+            <h3>{{ b.customer.username }}</h3>
+            <span class="badge badge-Accepted">Accepted</span>
+        </div>
+        <div class="contact-box">
+            <strong>Customer contact (call or email to agree on the price):</strong><br>
+            <i class="fa-solid fa-phone"></i> {{ b.customer.phone }} &nbsp;&nbsp;
+            <i class="fa-solid fa-envelope"></i> {{ b.customer.email }}
+        </div>
+        <p class="info-line"><i class="fa-solid fa-calendar"></i> {{ b.booking_date|date:"D, d M Y" }} at {{ b.booking_time|time:"h:i A" }}</p>
+        <p class="info-line"><i class="fa-solid fa-location-dot"></i> {{ b.address }}</p>
+        <p class="info-line"><i class="fa-solid fa-tag"></i>
+            {% if b.offered_price %}Offered: {{ b.offered_price|floatformat:0 }} BDT{% else %}Price to be negotiated{% endif %}
+        </p>
+        <p style="margin-top: 8px;">{{ b.description }}</p>
+
+        <div class="actions">
+            <form method="POST" action="{% url 'complete_booking' b.id %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-green btn-small">Mark as completed</button>
+            </form>
+        </div>
+    </div>
+{% empty %}
+    <div class="empty">No accepted jobs.</div>
+{% endfor %}
+
+<!-- HISTORY -->
+<h2 class="section">History</h2>
+{% for b in history %}
+    <div class="card booking">
+        <div class="booking-head">
+            <div>
+                <h3>{{ b.customer.username }}</h3>
+                <p class="muted">{{ b.booking_date|date:"d M Y" }} &middot; {{ b.description|truncatechars:80 }}</p>
+            </div>
+            <span class="badge badge-{{ b.status }}">{{ b.status }}</span>
+        </div>
+        {% if b.review %}
+            <p><span class="rating">{{ b.review.stars }}</span> {{ b.review.comment }}</p>
+        {% endif %}
+    </div>
+{% empty %}
+    <div class="empty">Nothing here yet.</div>
+{% endfor %}
+
+<!-- REVIEWS -->
+<h2 class="section">Latest reviews about you</h2>
+<div class="card">
+    {% for r in latest_reviews %}
+        <div class="review">
+            <span class="rating">{{ r.stars }}</span>
+            <strong style="margin-left: 8px;">{{ r.customer.username }}</strong>
+            <span class="muted"> &middot; {{ r.created_at|date:"d M Y" }}</span>
+            {% if r.comment %}<p style="margin-top: 6px;">{{ r.comment }}</p>{% endif %}
+        </div>
+    {% empty %}
+        <p class="muted">No reviews yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

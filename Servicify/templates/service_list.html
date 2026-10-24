@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<h1 class="page-title">What service do you need?</h1>
+<p class="page-sub">Pick a service, then choose a provider near you.</p>
+
+<div class="grid">
+    {% for service in services %}
+        <a href="{% url 'provider_list' %}?service={{ service.id }}" class="card service-box">
+            <div class="service-icon"><i class="fa-solid fa-{{ service.icon }}"></i></div>
+            <h3>{{ service.name }}</h3>
+            <p class="muted">{{ service.description }}</p>
+            <p style="margin-top: 10px;"><span class="tag">{{ service.provider_count }} provider{{ service.provider_count|pluralize }}</span></p>
+        </a>
+    {% empty %}
+        <div class="empty">No services have been added yet.</div>
+    {% endfor %}
+</div>
+{% endblock %}
