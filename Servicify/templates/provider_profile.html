@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}{{ provider.username }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="provider-top">
+        <div class="avatar" style="width: 90px; height: 90px; font-size: 38px;">{{ provider.username|first|upper }}</div>
+        <div>
+            <h1 style="font-size: 28px;">{{ provider.username }}</h1>
+            <span class="tag">{{ provider.service.name }}</span>
+            <p style="margin-top: 8px;">
+                {% if average %}
+                    <span class="rating"><i class="fa-solid fa-star"></i> {{ average }}</span>
+                    <span class="muted">({{ reviews|length }} review{{ reviews|length|pluralize }})</span>
+                {% else %}
+                    <span class="muted">No reviews yet</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <p class="info-line"><i class="fa-solid fa-location-dot"></i> Works in {{ provider.location.name }}, Dhaka</p>
+    <p class="info-line"><i class="fa-solid fa-briefcase"></i> {{ provider.experience }} year{{ provider.experience|pluralize }} of experience</p>
+    <p class="info-line"><i class="fa-solid fa-circle-check"></i> {{ done_jobs }} job{{ done_jobs|pluralize }} completed on Servicify</p>
+
+    {% if provider.bio %}
+        <p style="margin-top: 16px;">{{ provider.bio|linebreaksbr }}</p>
+    {% endif %}
+
+    <div class="actions">
+        <a href="{% url 'book_service' provider.id %}" class="btn">Book {{ provider.username }}</a>
+        <a href="{% url 'provider_list' %}?service={{ provider.service.id }}&location={{ provider.location.id }}" class="btn btn-outline">More {{ provider.service.name }} providers nearby</a>
+    </div>
+    <p class="muted" style="margin-top: 14px;">
+        <i class="fa-solid fa-lock"></i> Phone and email are shared after the provider accepts your booking.
+    </p>
+</div>
+
+<h2 class="section">Reviews</h2>
+<div class="card">
+    {% for r in reviews %}
+        <div class="review">
+            <span class="rating">{{ r.stars }}</span>
+            <strong style="margin-left: 8px;">{{ r.customer.username }}</strong>
+            <span class="muted"> &middot; {{ r.created_at|date:"d M Y" }}</span>
+            {% if r.comment %}<p style="margin-top: 6px;">{{ r.comment }}</p>{% endif %}
+        </div>
+    {% empty %}
+        <p class="muted">No reviews yet. Be the first to book and review!</p>
+    {% endfor %}
+</div>
+{% endblock %}

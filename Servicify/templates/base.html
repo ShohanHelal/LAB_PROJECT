@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Servicify{% endblock %} | Servicify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --primary-light: #e0e7ff;
+            --dark-text: #0f172a;
+            --muted-text: #64748b;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --radius-md: 16px;
+        }
+
+        body { background: #f8fafc; color: var(--dark-text); min-height: 100vh; display: flex; flex-direction: column; }
+        a { color: var(--primary); }
+
+        /* header */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 8%; background: rgba(255,255,255,0.95);
+            position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #f1f5f9;
+        }
+        .logo a { font-size: 26px; font-weight: 800; color: var(--primary); text-decoration: none; }
+        .logo a span { color: var(--dark-text); }
+        nav ul { display: flex; list-style: none; gap: 28px; }
+        nav ul li a, .btn-link { text-decoration: none; color: var(--dark-text); font-weight: 600; font-size: 15px; }
+        nav ul li a:hover, .btn-link:hover { color: var(--primary); }
+        .nav-actions { display: flex; align-items: center; gap: 20px; }
+
+        /* buttons */
+        .btn, .btn-primary {
+            display: inline-block; border: none; cursor: pointer; text-decoration: none;
+            background: var(--primary); color: #fff; padding: 11px 22px; border-radius: 30px;
+            font-weight: 600; font-size: 14px; transition: all 0.2s;
+        }
+        .btn:hover, .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-outline { background: #fff; color: var(--primary); border: 1.5px solid var(--primary); }
+        .btn-outline:hover { background: var(--primary-light); }
+        .btn-green { background: #16a34a; }
+        .btn-green:hover { background: #15803d; }
+        .btn-red { background: #dc2626; }
+        .btn-red:hover { background: #b91c1c; }
+        .btn-small { padding: 8px 16px; font-size: 13px; }
+
+        /* layout */
+        main { flex: 1; width: 100%; max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; }
+        .page-title { font-size: 32px; font-weight: 800; margin-bottom: 6px; }
+        .page-sub { color: var(--muted-text); margin-bottom: 30px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 22px; }
+        .card { background: #fff; border-radius: var(--radius-md); padding: 24px; box-shadow: var(--card-shadow); }
+        .center { text-align: center; }
+        .muted { color: var(--muted-text); font-size: 14px; }
+
+        /* messages */
+        .messages { max-width: 1100px; margin: 20px auto 0; padding: 0 20px; width: 100%; }
+        .msg { padding: 14px 18px; border-radius: 12px; margin-bottom: 10px; font-weight: 500; font-size: 14px; }
+        .msg.success { background: #dcfce7; color: #166534; }
+        .msg.error { background: #fee2e2; color: #991b1b; }
+
+        /* service cards */
+        .service-box { text-align: center; text-decoration: none; color: var(--dark-text); transition: transform .2s; }
+        .service-box:hover { transform: translateY(-4px); }
+        .service-icon {
+            width: 64px; height: 64px; border-radius: 50%; background: var(--primary-light); color: var(--primary);
+            display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 14px;
+        }
+        .service-box h3 { font-size: 18px; margin-bottom: 6px; }
+
+        /* filter bar */
+        .filter-bar { display: flex; gap: 14px; flex-wrap: wrap; align-items: end; margin-bottom: 26px; }
+        .filter-bar label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+        select, input[type=text], input[type=date], input[type=time], input[type=number], input[type=email], input[type=password], textarea {
+            width: 100%; padding: 12px; border: 1px solid #dfe3ed; border-radius: 10px; font-size: 14px; outline: none; background: #fff;
+        }
+        select:focus, input:focus, textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(81,69,238,.1); }
+        .filter-bar > div { min-width: 200px; }
+
+        /* provider card */
+        .avatar {
+            width: 70px; height: 70px; border-radius: 50%; background: var(--primary-light); color: var(--primary);
+            display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; flex-shrink: 0;
+        }
+        .provider-top { display: flex; gap: 16px; align-items: center; margin-bottom: 14px; }
+        .provider-top h3 { font-size: 18px; }
+        .tag { display: inline-block; background: var(--primary-light); color: var(--primary); padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .rating { color: #f59e0b; font-weight: 700; }
+        .info-line { color: var(--muted-text); font-size: 14px; margin: 4px 0; }
+        .info-line i { width: 18px; color: #94a3b8; }
+
+        /* forms */
+        .form-card { background: #fff; border-radius: 20px; padding: 32px; box-shadow: var(--card-shadow); max-width: 560px; margin: 0 auto; }
+        .form-card p { margin-bottom: 16px; }
+        .form-card label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 7px; }
+        .form-card ul.errorlist { color: #dc2626; font-size: 13px; list-style: none; margin-bottom: 6px; }
+        .form-card .helptext { display: block; color: var(--muted-text); font-size: 12px; margin-top: 4px; }
+
+        /* bookings */
+        .booking { margin-bottom: 20px; }
+        .booking-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+        .badge { padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; }
+        .badge-Pending { background: #fef3c7; color: #92400e; }
+        .badge-Accepted { background: #dbeafe; color: #1e40af; }
+        .badge-Completed { background: #dcfce7; color: #166534; }
+        .badge-Declined, .badge-Cancelled { background: #fee2e2; color: #991b1b; }
+        .contact-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 12px; padding: 14px 16px; margin: 14px 0; font-size: 14px; }
+        .contact-box strong { color: #166534; }
+        .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+        .actions form { display: inline; }
+
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 18px; margin-bottom: 36px; }
+        .stat { text-align: center; }
+        .stat b { display: block; font-size: 30px; color: var(--primary); }
+        h2.section { font-size: 22px; margin: 34px 0 16px; }
+        .review { border-bottom: 1px solid #f1f5f9; padding: 14px 0; }
+        .review:last-child { border-bottom: none; }
+        .empty { text-align: center; color: var(--muted-text); padding: 30px; background: #fff; border-radius: var(--radius-md); }
+
+        footer { background: #0f172a; color: #94a3b8; text-align: center; padding: 26px; font-size: 14px; }
+
+        @media (max-width: 768px) { nav { display: none; } header { padding: 15px 5%; } .page-title { font-size: 26px; } }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><a href="{% url 'home' %}">Servi<span>cify</span></a></div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'service_list' %}">Services</a></li>
+            <li><a href="{% url 'provider_list' %}">Find providers</a></li>
+            <li><a href="{% url 'serviceman_signup' %}">Become a provider</a></li>
+        </ul>
+    </nav>
+    <div class="nav-actions">
+        {% if request.session.customer_id %}
+            <a href="{% url 'my_bookings' %}" class="btn-link">My bookings</a>
+            <a href="{% url 'signout' %}" class="btn">Log out</a>
+        {% elif request.session.serviceman_id %}
+            <a href="{% url 'serviceman_dashboard' %}" class="btn-link">Dashboard</a>
+            <a href="{% url 'signout' %}" class="btn">Log out</a>
+        {% else %}
+            <a href="{% url 'signin' %}" class="btn-link">Log in</a>
+            <a href="{% url 'register_choice' %}" class="btn">Sign up</a>
+        {% endif %}
+    </div>
+</header>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+        <div class="msg {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>© 2026 Servicify. Find trusted local services in Dhaka.</footer>
+
+</body>
+</html>

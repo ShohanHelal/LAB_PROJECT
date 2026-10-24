@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+<div class="center">
+    <h1 class="page-title">Join Servicify</h1>
+    <p class="page-sub">How do you want to use Servicify?</p>
+</div>
+
+<div class="grid" style="max-width: 700px; margin: 0 auto;">
+    <a href="{% url 'signup' %}" class="card service-box">
+        <div class="service-icon"><i class="fa-solid fa-user"></i></div>
+        <h3>I need a service</h3>
+        <p class="muted">Create a customer account to find and book trusted providers near you.</p>
+    </a>
+    <a href="{% url 'serviceman_signup' %}" class="card service-box">
+        <div class="service-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+        <h3>I provide a service</h3>
+        <p class="muted">Create a provider account to receive work from customers in your area.</p>
+    </a>
+</div>
+
+<p class="center muted" style="margin-top: 30px;">
+    Already have an account? <a href="{% url 'signin' %}">Log in</a>
+</p>
+{% endblock %}

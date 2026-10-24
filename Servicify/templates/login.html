@@ -126,12 +126,17 @@
             Log in to book trusted home services.
         </p>
 
+        {% for message in messages %}
+            <p style="color: {% if message.tags == 'error' %}red{% else %}green{% endif %}; margin-bottom: 15px; text-align: center;">{{ message }}</p>
+        {% endfor %}
+
         {% if error %}
             <p style="color: red; margin-bottom: 15px; text-align: center;">{{ error }}</p>
         {% endif %}
 
         <form method="POST">
             {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
 
             <label for="role">Login as</label>
             <select id="role" name="role" required
@@ -156,6 +161,9 @@
         <div class="footer">
             Don't have an account?
             <a href="{% url 'register_choice' %}">Sign Up</a>
+        </div>
+        <div class="footer">
+            <a href="{% url 'home' %}">&larr; Back to home</a>
         </div>
 
     </div>

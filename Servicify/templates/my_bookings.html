@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}My bookings{% endblock %}
+
+{% block content %}
+<h1 class="page-title">My bookings</h1>
+<p class="page-sub">Hello {{ customer.username }}! Track your requests here.</p>
+
+{% for b in bookings %}
+    <div class="card booking">
+        <div class="booking-head">
+            <div>
+                <h3>
+                    {{ b.serviceman.service.name }} by
+                    <a href="{% url 'provider_profile' b.serviceman.id %}" style="text-decoration: none;">{{ b.serviceman.username }}</a>
+                </h3>
+                <p class="muted">Requested on {{ b.created_at|date:"d M Y, h:i A" }}</p>
+            </div>
+            <span class="badge badge-{{ b.status }}">{{ b.status }}</span>
+        </div>
+
+        <p class="info-line"><i class="fa-solid fa-calendar"></i> {{ b.booking_date|date:"D, d M Y" }} at {{ b.booking_time|time:"h:i A" }}</p>
+        <p class="info-line"><i class="fa-solid fa-location-dot"></i> {{ b.address }}</p>
+        <p class="info-line"><i class="fa-solid fa-tag"></i>
+            {% if b.offered_price %}Your offer: {{ b.offered_price|floatformat:0 }} BDT{% else %}Price to be negotiated{% endif %}
+        </p>
+        <p style="margin-top: 8px;">{{ b.description }}</p>
+
+        {% if b.contact_visible %}
+            <div class="contact-box">
+                <strong>Provider contact (agree on the price here):</strong><br>
+                <i class="fa-solid fa-phone"></i> {{ b.serviceman.phone }} &nbsp;&nbsp;
+                <i class="fa-solid fa-envelope"></i> {{ b.serviceman.email }}
+            </div>
+        {% elif b.status == 'Pending' %}
+            <p class="muted" style="margin-top: 10px;"><i class="fa-solid fa-hourglass-half"></i> Waiting for the provider to accept.</p>
+        {% elif b.status == 'Declined' %}
+            <p class="muted" style="margin-top: 10px;">The provider could not take this job. Try another provider.</p>
+        {% endif %}
+
+        <div class="actions">
+            {% if b.status == 'Accepted' %}
+                <form method="POST" action="{% url 'complete_booking' b.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-green btn-small">Mark as completed</button>
+                </form>
+            {% endif %}
+
+            {% if b.status == 'Pending' or b.status == 'Accepted' %}
+                <form method="POST" action="{% url 'cancel_booking' b.id %}" onsubmit="return confirm('Cancel this booking?');">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-red btn-small">Cancel booking</button>
+                </form>
+            {% endif %}
+
+            {% if b.status == 'Completed' %}
+                {% if b.review %}
+                    <span class="rating">Your review: {{ b.review.stars }}</span>
+                {% else %}
+                    <a href="{% url 'add_review' b.id %}" class="btn btn-small"><i class="fa-solid fa-star"></i> Write a review</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% empty %}
+    <div class="empty">
+        You have no bookings yet.<br><br>
+        <a href="{% url 'service_list' %}" class="btn">Find a service</a>
+    </div>
+{% endfor %}
+{% endblock %}

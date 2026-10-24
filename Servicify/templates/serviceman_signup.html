@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicify | Serviceman Login</title>
+    <title>Servicify | Provider Sign Up</title>
 
     <style>
         * {
@@ -19,15 +19,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 25px 15px;
             background: linear-gradient(135deg, #6565f5, #dfe5ff);
+            color: #172033;
         }
 
         .container {
             background: white;
             width: 100%;
-            max-width: 420px;
-            padding: 40px 35px;
+            max-width: 520px;
+            padding: 35px;
             border-radius: 22px;
             box-shadow: 0 15px 45px rgba(40, 35, 120, 0.18);
         }
@@ -36,7 +37,7 @@
             text-align: center;
             font-size: 30px;
             font-weight: bold;
-            margin-bottom: 25px;
+            margin-bottom: 22px;
         }
 
         .logo span {
@@ -46,38 +47,70 @@
         h2 {
             text-align: center;
             margin-bottom: 10px;
+            font-size: 27px;
         }
 
         .subtitle {
             text-align: center;
-            color: #777f91;
+            color: #7a8191;
             font-size: 14px;
-            margin-bottom: 28px;
+            margin-bottom: 25px;
+            line-height: 1.5;
         }
 
-        label {
+        .auth-form p {
+            margin-bottom: 15px;
+        }
+
+        .auth-form label {
             display: block;
-            font-weight: bold;
             font-size: 14px;
+            font-weight: bold;
             margin-bottom: 8px;
         }
 
-        input {
+        .auth-form input,
+        .auth-form select,
+        .auth-form textarea {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
             border: 1px solid #dfe3ed;
             border-radius: 10px;
-            margin-bottom: 20px;
             outline: none;
+            font-size: 14px;
         }
 
-        input:focus {
+        .auth-form input:focus,
+        .auth-form select:focus,
+        .auth-form textarea:focus {
             border-color: #5145ee;
+            box-shadow: 0 0 0 3px rgba(81, 69, 238, 0.1);
+        }
+
+        .auth-form .helptext {
+            display: block;
+            font-size: 12px;
+            color: #7a8191;
+            margin-top: 6px;
+        }
+
+        .auth-form select,
+        .auth-form textarea {
+            background: #fff;
+            font-family: inherit;
+        }
+
+        .auth-form ul.errorlist {
+            color: #dc2626;
+            font-size: 13px;
+            list-style: none;
+            margin-bottom: 8px;
         }
 
         button {
             width: 100%;
             padding: 14px;
+            margin-top: 8px;
             border: none;
             border-radius: 12px;
             background: #5145ee;
@@ -85,17 +118,19 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
 
         button:hover {
             background: #4035d5;
+            transform: translateY(-2px);
         }
 
         .footer {
             text-align: center;
-            margin-top: 24px;
-            font-size: 14px;
+            margin-top: 23px;
             color: #777f91;
+            font-size: 14px;
         }
 
         a {
@@ -103,37 +138,44 @@
             text-decoration: none;
             font-weight: bold;
         }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 27px 22px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <div class="logo"><span>Servi</span> cify</div>
 
-        <h2>Service Provider Login</h2>
-        <p class="subtitle">Log in to manage your services and bookings.</p>
+        <div class="logo"><span>Servici</span>fy</div>
 
-        <form method="POST">
+        <h2>Become a Provider</h2>
+        <p class="subtitle">
+            Create your provider account and start receiving work from customers near you.
+        </p>
+
+        <form method="POST" class="auth-form">
             {% csrf_token %}
 
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username"
-                   placeholder="Enter your username" required>
+            {{ form.as_p }}
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password"
-                   placeholder="Enter your password" required>
-
-            <button type="submit">Log In</button>
+            <button type="submit">Create Provider Account</button>
         </form>
 
         <div class="footer">
-            Not registered yet?
-            <a href="{% url 'serviceman_signup' %}">Sign Up as a Serviceman</a>
+            Already have an account?
+            <a href="{% url 'signin' %}">Log In</a>
+            &nbsp;|&nbsp;
+            <a href="{% url 'signup' %}">Customer sign up</a>
         </div>
 
-        <div class="footer">
-            <a href="{% url 'signin' %}">Customer Login</a>
-        </div>
     </div>
 </body>
 </html>

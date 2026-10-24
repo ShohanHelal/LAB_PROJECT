@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarvicify - Home Services, Made Easy</title>
+    <title>Servicify - Home Services, Made Easy</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
@@ -182,6 +182,15 @@
 
         .search-input i {
             color: #94a3b8;
+        }
+
+        .search-input select {
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            color: var(--dark-text);
+            background: transparent;
         }
 
         .search-input input {
@@ -506,6 +515,22 @@
             overflow: hidden;
         }
 
+        .expert-avatar.initial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 38px;
+            font-weight: 800;
+        }
+
+        .expert-card { text-decoration: none; color: inherit; display: block; }
+
+        .msg-bar { max-width: 1000px; margin: 14px auto 0; padding: 0 20px; }
+        .msg-bar div { background: #dcfce7; color: #166534; padding: 12px 18px; border-radius: 12px; font-weight: 600; font-size: 14px; }
+        .msg-bar div.error { background: #fee2e2; color: #991b1b; }
+
         .expert-avatar img {
             width: 100%;
             height: 100%;
@@ -679,21 +704,36 @@
     <!-- Header / Navbar -->
     <header>
         <div class="logo">
-            <a href="{% url 'home' %}"><i class="fa-solid fa-sparkles"></i> Sarvi<span>cify</span></a>
+            <a href="{% url 'home' %}"><i class="fa-solid fa-sparkles"></i><em style="font-style: normal;">Servi<span>cify</span></em></a>
         </div>
         <nav>
             <ul>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">How it works</a></li>
-                <li><a href="#">Locations</a></li>
-                <li><a href="#">Become a provider</a></li>
+                <li><a href="{% url 'service_list' %}">Services</a></li>
+                <li><a href="#how-it-works">How it works</a></li>
+                <li><a href="#locations">Locations</a></li>
+                <li><a href="{% url 'serviceman_signup' %}">Become a provider</a></li>
             </ul>
         </nav>
         <div class="nav-actions">
-            <a href="{% url 'signup' %}" class="btn-link">Log in</a>
-            <a href="#" class="btn-primary">Book a service</a>
+            {% if request.session.customer_id %}
+                <a href="{% url 'my_bookings' %}" class="btn-link">My bookings</a>
+                <a href="{% url 'signout' %}" class="btn-link">Log out</a>
+            {% elif request.session.serviceman_id %}
+                <a href="{% url 'serviceman_dashboard' %}" class="btn-link">Dashboard</a>
+                <a href="{% url 'signout' %}" class="btn-link">Log out</a>
+            {% else %}
+                <a href="{% url 'signin' %}" class="btn-link">Log in</a>
+                <a href="{% url 'register_choice' %}" class="btn-link">Sign up</a>
+            {% endif %}
+            <a href="{% url 'service_list' %}" class="btn-primary">Book a service</a>
         </div>
     </header>
+
+    {% if messages %}
+    <div class="msg-bar">
+        {% for message in messages %}<div class="{{ message.tags }}">{{ message }}</div>{% endfor %}
+    </div>
+    {% endif %}
 
     <!-- Hero Section -->
     <section class="hero">
@@ -701,19 +741,29 @@
             <i class="fa-solid fa-star"></i> 7.5K Happy Customers
         </div>
         <h1>Home services,<br>made easy</h1>
-        <p>Book trusted professionals for your home, apartment, office, or property.</p>
+        <p>Find trusted professionals near you in Dhaka - for your home, apartment, or office.</p>
 
         <!-- Search Bar Form -->
-        <form action="#" method="GET" class="search-box">
+        <form action="{% url 'provider_list' %}" method="GET" class="search-box">
             <div class="search-input">
                 <i class="fa-solid fa-magnifying-glass"></i>
-                <input type="text" name="service" placeholder="What service do you need?">
+                <select name="service">
+                    <option value="">What service do you need?</option>
+                    {% for s in services %}
+                        <option value="{{ s.id }}">{{ s.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="search-input">
                 <i class="fa-solid fa-location-dot"></i>
-                <input type="text" name="location" placeholder="Select your location">
+                <select name="location">
+                    <option value="">Anywhere in Dhaka</option>
+                    {% for l in locations %}
+                        <option value="{{ l.id }}" {% if l.id == my_location_id %}selected{% endif %}>{{ l.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
-            <button type="submit" class="btn-search">Book a service</button>
+            <button type="submit" class="btn-search">Find providers</button>
         </form>
     </section>
 
@@ -737,38 +787,26 @@
         </div>
 
         <div class="services-grid">
-            <a href="#" class="service-card">
-                <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=500&q=80" alt="Home Cleaning">
-                <div class="service-card-label">Home Cleaning</div>
-            </a>
-            <a href="#" class="service-card">
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=500&q=80" alt="Electrical">
-                <div class="service-card-label">Electrical</div>
-            </a>
-            <div class="quote-card">
-                <p>“Finally, a simple and reliable way to find help for home repairs.”</p>
-                <span>— Alex Morgan • New York</span>
-            </div>
-            <a href="#" class="service-card">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=500&q=80" alt="Plumbing">
-                <div class="service-card-label">Plumbing</div>
-            </a>
-            <a href="#" class="service-card">
-                <img src="https://images.unsplash.com/photo-1631545806161-5121b66b26d3?auto=format&fit=crop&w=500&q=80" alt="AC Service">
-                <div class="service-card-label">AC Service</div>
-            </a>
-            <a href="#" class="service-card">
-                <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=500&q=80" alt="Painting">
-                <div class="service-card-label">Painting</div>
-            </a>
+            {% for service in popular_services %}
+                <a href="{% url 'provider_list' %}?service={{ service.id }}" class="service-card">
+                    <img src="{{ service.image_url }}" alt="{{ service.name }}">
+                    <div class="service-card-label">{{ service.name }}</div>
+                </a>
+                {% if forloop.counter == 2 %}
+                <div class="quote-card">
+                    <p>Find trusted local help across Dhaka - Mirpur, Gulshan, Farmgate, Mohammadpur and more.</p>
+                    <span>— Servicify</span>
+                </div>
+                {% endif %}
+            {% endfor %}
         </div>
 
         <div style="text-align: center; margin-top: 40px;">
-            <a href="#" class="btn-primary">View all services</a>
+            <a href="{% url 'service_list' %}" class="btn-primary">View all services</a>
         </div>
 
         <!-- 02 HOW IT WORKS -->
-        <div class="section-header" style="margin-top: 100px;">
+        <div class="section-header" id="how-it-works" style="margin-top: 100px;">
             <span class="section-subtitle">02 SIMPLE STEPS</span>
             <h2 class="section-title">Book in 3 steps</h2>
             <p style="color: var(--muted-text); margin-top: 8px;">A clear path from task to trusted help.</p>
@@ -780,24 +818,24 @@
                 <div class="step-img">
                     <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=500&q=80" alt="Choose a service">
                 </div>
-                <h3>Choose a service</h3>
-                <p>Tell us what you need done around your house or office.</p>
+                <h3>Find a service</h3>
+                <p>Pick the service you need and your area in Dhaka.</p>
             </div>
             <div class="step-card">
                 <div class="step-num">02</div>
                 <div class="step-img">
                     <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=500&q=80" alt="Pick a time">
                 </div>
-                <h3>Pick a time</h3>
-                <p>Select a date and time slot that fits your schedule best.</p>
+                <h3>Choose a provider</h3>
+                <p>Check profiles and reviews, then book a date and time.</p>
             </div>
             <div class="step-card">
                 <div class="step-num">03</div>
                 <div class="step-img">
                     <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=500&q=80" alt="Relax">
                 </div>
-                <h3>Relax</h3>
-                <p>A background-checked professional arrives to solve your problem.</p>
+                <h3>Agree and relax</h3>
+                <p>Once the provider accepts, you get each other's contact to agree on the price.</p>
             </div>
         </div>
 
@@ -837,15 +875,21 @@
 
         <!-- CATEGORIES PILLS -->
         <div class="categories-pills">
-            <a href="#" class="pill active"><i class="fa-solid fa-car"></i> Driver</a>
-            <a href="#" class="pill"><i class="fa-solid fa-snowflake"></i> AC Repair</a>
-            <a href="#" class="pill"><i class="fa-solid fa-broom"></i> Cleaning</a>
-            <a href="#" class="pill"><i class="fa-solid fa-utensils"></i> Chef</a>
-            <a href="#" class="pill"><i class="fa-solid fa-seedling"></i> Gardener</a>
-            <a href="#" class="pill"><i class="fa-solid fa-paint-roller"></i> Painting</a>
-            <a href="#" class="pill"><i class="fa-solid fa-faucet"></i> Plumbing</a>
-            <a href="#" class="pill"><i class="fa-solid fa-shirt"></i> Laundry</a>
-            <a href="#" class="pill"><i class="fa-solid fa-bolt"></i> Electrical</a>
+            {% for service in services %}
+                <a href="{% url 'provider_list' %}?service={{ service.id }}" class="pill"><i class="fa-solid fa-{{ service.icon }}"></i> {{ service.name }}</a>
+            {% endfor %}
+        </div>
+
+        <!-- LOCATIONS -->
+        <div class="section-header" id="locations">
+            <span class="section-subtitle">WHERE WE WORK</span>
+            <h2 class="section-title">Areas in Dhaka</h2>
+            <p style="color: var(--muted-text); margin-top: 8px;">Pick your area to see providers near you.</p>
+        </div>
+        <div class="categories-pills" style="margin-top: 0;">
+            {% for l in locations %}
+                <a href="{% url 'provider_list' %}?location={{ l.id }}" class="pill"><i class="fa-solid fa-location-dot"></i> {{ l.name }}</a>
+            {% endfor %}
         </div>
 
         <!-- MEET LOCAL EXPERTS -->
@@ -856,40 +900,24 @@
         </div>
 
         <div class="experts-grid">
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="Sarah">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.9 Rating</div>
-                <h3>Sarah Jenkins</h3>
-                <p>Chef • London</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&q=80" alt="Maria">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.8 Rating</div>
-                <h3>Maria Garcia</h3>
-                <p>Home Cleaning • Toronto</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" alt="David">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.8 Rating</div>
-                <h3>David Miller</h3>
-                <p>Electrical • Chicago</p>
-            </div>
-            <div class="expert-card">
-                <div class="expert-avatar">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80" alt="Robert">
-                </div>
-                <div class="expert-rating"><i class="fa-solid fa-star"></i> 4.9 Rating</div>
-                <h3>Robert Wilson</h3>
-                <p>Handyman • Sydney</p>
-            </div>
+            {% for p in top_providers %}
+                <a href="{% url 'provider_profile' p.id %}" class="expert-card">
+                    <div class="expert-avatar initial">{{ p.username|first|upper }}</div>
+                    <div class="expert-rating">
+                        <i class="fa-solid fa-star"></i>
+                        {% if p.avg_rating %}{{ p.avg_rating|floatformat:1 }} Rating{% else %}New{% endif %}
+                    </div>
+                    <h3>{{ p.username }}</h3>
+                    <p>{{ p.service.name }} • {{ p.location.name }}</p>
+                </a>
+            {% empty %}
+                <p style="grid-column: 1 / -1; text-align: center; color: var(--muted-text);">
+                    No providers yet. <a href="{% url 'serviceman_signup' %}">Become the first one!</a>
+                </p>
+            {% endfor %}
         </div>
 
+        {% if latest_reviews %}
         <!-- LOVED BY CUSTOMERS -->
         <div class="section-header" style="margin-top: 100px;">
             <span class="section-subtitle">05 TESTIMONIALS</span>
@@ -897,40 +925,20 @@
         </div>
 
         <div class="testimonials-grid">
+            {% for r in latest_reviews %}
             <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"The booking process was seamless and the cleaning expert arrived right on time. Outstanding service!"</p>
+                <div class="stars">{{ r.stars }}</div>
+                <p>"{% if r.comment %}{{ r.comment }}{% else %}Great service!{% endif %}"</p>
                 <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" alt="User">
                     <div>
-                        <h5>James Anderson</h5>
-                        <span>New York</span>
+                        <h5>{{ r.customer.username }}</h5>
+                        <span>{{ r.customer.location.name }} • reviewed {{ r.serviceman.username }}</span>
                     </div>
                 </div>
             </div>
-            <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Super easy to book and the electrician fixed my home wiring in no time. Highly recommended!"</p>
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&w=100&q=80" alt="User">
-                    <div>
-                        <h5>Dr. Ralph Harris</h5>
-                        <span>London</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
-                <p>"Finally, a reliable platform to hire vetted professionals. I've used Sarvicify three times now."</p>
-                <div class="user-info">
-                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=100&q=80" alt="User">
-                    <div>
-                        <h5>Emily Watson</h5>
-                        <span>Sydney</span>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
+        {% endif %}
 
         <!-- FAQ SECTION -->
         <div class="section-header" style="margin-top: 100px;">
@@ -944,7 +952,7 @@
                 <i class="fa-solid fa-plus"></i>
             </div>
             <div class="faq-item">
-                <span>Which locations and cities do you cover?</span>
+                <span>Which areas do you cover? (Dhaka only, for now)</span>
                 <i class="fa-solid fa-plus"></i>
             </div>
             <div class="faq-item">
@@ -958,15 +966,15 @@
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">Sarvi<span>cify</span></div>
+            <div class="footer-logo">Servi<span>cify</span></div>
             <ul class="footer-links">
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="{% url 'service_list' %}">Services</a></li>
+                <li><a href="{% url 'provider_list' %}">Find providers</a></li>
+                <li><a href="{% url 'serviceman_signup' %}">Become a provider</a></li>
             </ul>
         </div>
         <div class="footer-bottom">
-            © 2026 Sarvicify. All rights reserved. Handcrafted for a better home service experience.
+            © 2026 Servicify. All rights reserved. Handcrafted for a better home service experience.
         </div>
     </footer>
 

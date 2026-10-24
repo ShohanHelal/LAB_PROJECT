@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Book {{ provider.username }}{% endblock %}
+
+{% block content %}
+<div class="form-card">
+    <h1 class="page-title" style="font-size: 26px;">Book a service</h1>
+
+    <div class="provider-top" style="margin: 16px 0 24px;">
+        <div class="avatar">{{ provider.username|first|upper }}</div>
+        <div>
+            <h3>{{ provider.username }}</h3>
+            <span class="tag">{{ provider.service.name }}</span>
+            <p class="muted" style="margin-top: 4px;">{{ provider.location.name }}, Dhaka</p>
+        </div>
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn" style="width: 100%; padding: 14px;">Send booking request</button>
+    </form>
+
+    <p class="muted center" style="margin-top: 14px;">
+        The provider will accept or decline your request. After he accepts, you both get each other's contact details to agree on the price.
+    </p>
+</div>
+{% endblock %}
