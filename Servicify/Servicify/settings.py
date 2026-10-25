@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wgu0+=z9m3nmrxrhj^r)8%0__n*5(di%r+$!k+3$vu43vfoqsy'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['servicify-dblv.onrender.com']
 
 
 # Application definition
